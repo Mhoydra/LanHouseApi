@@ -21,19 +21,10 @@ async function listarUsuarioEmail(req,res){
 // sem mysql insjection
 async function listarUsuarioId(req,res){
 
+    const { id } = req.params;
     const sql = 'SELECT * FROM usuarios WHERE id = ?';
-    const usuario = await conexao.query(
-    );
-
-    try{
-        console.log(usuario)
-        res.status(200).json(usuario)
-    } catch(err) {
-        console.log(err);
-        res.status(500).json({
-            erro: `Deu ruim aqui chefe quando fui procura os caras, mas nem eu sei o que deu ruim`
-        });
-    }
+    
+    // continuar a partir daqui e achar o erro
 };
 
 module.exports = {
