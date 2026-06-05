@@ -1,6 +1,6 @@
 const conexao = require("../db/conexao");
 
-// mysql insjection
+// mysql insjection ocorre
 async function listarUsuarioEmail(req,res){
     
     const usuario = await conexao.query(
@@ -11,9 +11,9 @@ async function listarUsuarioEmail(req,res){
         console.log(usuario)
         res.status(200).json(usuario)
     } catch(err) {
-        console.log(err);
+        console.error(err);
         res.status(500).json({
-            erro: `Deu ruim aqui chefe quando fui procura os caras, mas nem eu sei o que deu ruim`
+            mensagem: `Deu ruim aqui chefe quando fui procura os caras, mas nem eu sei o que deu ruim`
         });
     }
 };
@@ -21,9 +21,20 @@ async function listarUsuarioEmail(req,res){
 // sem mysql insjection
 async function listarUsuarioId(req,res){
 
-    const { id } = req.params;
-    const sql = 'SELECT * FROM usuarios WHERE id = ?';
-    
+    try {
+        const { idUsuario } = req.params;
+
+        const [result] = await conexao.query(
+            'SELECT * FROM usuarios WHERE idUsuario = ?',
+            [idUsuario]
+        );
+
+        return res.json(result);
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ erro: err.message });
+    }
     // continuar a partir daqui e achar o erro
 };
 

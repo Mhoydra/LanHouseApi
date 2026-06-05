@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 const { 
-    listarUsuario
-} = require('../controllers/usuariosController');
+    listarUsuarioEmail,
+    listarUsuarioId 
+} = require('../controllers/usuarioController');
 
-router.get('/', listarUsuario);
+router.get('/', listarUsuarioEmail);
+router.get('/:idUsuario', listarUsuarioId);
 
 module.exports = router;
